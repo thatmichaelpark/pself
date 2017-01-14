@@ -72,7 +72,7 @@ dst-operand |111f_fffg | f (0000..1111) specifes operation
 
 Notes:
 
-<sup>1</sup> bbbb (0000..1100) is quick immediate addressing (bbbb is the data); bbbb = 1101 is immediate addressing (the following byte is the data); bbbb = 1110 is absolute addressing (the next byte is the address of the data); bbbb = 1111 is indirect addressing (the next byte is the address of the address of the data). Examples:
+<sup>1</sup> bbbb = 0000..1100 indicates quick immediate addressing (i.e., bbbb is the data); bbbb = 1101 indicates immediate addressing (i.e., the next byte is the data); bbbb = 1110 indicates absolute addressing (i.e., the next byte is the address of the data); bbbb = 1111 indicates indirect addressing (i.e., the next byte is the address of the address of the data). Examples:
 
 ```
  LDA #10   ; quick immediate
