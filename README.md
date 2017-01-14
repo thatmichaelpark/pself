@@ -6,7 +6,7 @@ microprocessor with 256 bytes of RAM.
 ## Hardware
 ### Inputs
 - 8 data input toggle switches
-- 4 control toggle switches: Run/Stop, Mode, Write-protect, Enter (3-position momentary switch)
+- 4 control toggle switches: Run/Stop, Mode, Read/Write, Enter (3-position momentary switch)
 
 ### Outputs
 - 8 LEDs
@@ -19,7 +19,7 @@ microprocessor with 256 bytes of RAM.
 - 32k bytes of EEPROM for storage of 128 256-byte blocks
 
 ## Operation
- Run/Stop | Mode           | Write-protect | Display |Enter               | Notes
+ Run/Stop | Mode           | Read/Write | Display |Enter               | Notes
 ----------|----------------|---------------|---------|--------------------|------
 Down (Stop)| Down (Normal)  | Down (R/W)    | AADD<sup>1</sup>| Press up to deposit and advance, press down to load address | Modify memory. Use data input switches to specify data or address.
 Down (Stop)| Down (Normal)  | Up (Read-only)| AADD<sup>1</sup>| Press up to advance, press down to load address | Examine memory. Use data input switches to specify address.
