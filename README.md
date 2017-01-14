@@ -22,17 +22,17 @@ microprocessor with 256 bytes of RAM.
  Run/Stop | Mode           | Write-protect | Display |Enter               | Notes
 ----------|----------------|---------------|---------|--------------------|------
 Down (Stop)| Down (Normal)  | Down (R/W)    | AADD<sup>1</sup>| Press up to deposit and advance, press down to load address | Modify memory. Use data input switches to specify data or address.
-Down (Stop)| Down (Normal)  | Up (Read-only)| AADD [1]| Press up to advance, press down to load address | Examine memory. Use data input switches to specify address.
+Down (Stop)| Down (Normal)  | Up (Read-only)| AADD<sup>1</sup>| Press up to advance, press down to load address | Examine memory. Use data input switches to specify address.
 Down (Stop)| Up (Load/Save) | Down (Load)   | L       | Press up to load 256-byte block | Data input switches specify block (0-127)
 Down (Stop)| Up (Load/Save) | Up (Save)   | S       | Press up to save 256-byte block |Data input switches specify block (0-127)
 Up (Run)  | Down (Normal)  | (Can be read by program | Under program control | (Can be read by program) | Program is running
-Up (Run)  | Up (Step mode) | -             | AADD [2]     | Press up to single step  | Program is halted; can single-step
+Up (Run)  | Up (Step mode) | -             | AADD<sup>2</sup>     | Press up to single step  | Program is halted; can single-step
 
 Notes:
 
 <sup>1</sup> Two hex digits for the current address, two hex digits for the contents of that address
 
-[2] Alternates between AADD as in [1] and the output of the halted program
+<sup>2</sup> Alternates between AADD (as in Note 1) and the output of the halted program
 
 ## Pself Programmer's Model
 
@@ -66,13 +66,13 @@ Opcodes are divided into four groups:
 Group    | Bit pattern               | Description   
 ---------|----------------------|---------------------------------------
 0-operand   |0000_aaaa          | aaaa (0000..1111) specifies operation                   |
-src-operand |0001_bbbb..1100_bbbb  | high nibble specifies operation, low nibble (bbbb) indicates addressing mode [1]
+src-operand |0001_bbbb..1100_bbbb  | high nibble specifies operation, low nibble (bbbb) indicates addressing mode<sup>1</sup>
 in/out      |1101_deee | d = 0 indicates output; d = 1 indicates input; eee (000..110) indicates port #, eee = 111 means indirect
 dst-operand |111f_fffg | f (0000..1111) specifes operation
 
 Notes:
 
-[1] bbbb (0000..1100) is quick immediate addressing (bbbb is the data); bbbb = 1101 is immediate addressing (the following byte is the data); bbbb = 1110 is absolute addressing (the next byte is the address of the data); bbbb = 1111 is indirect addressing (the next byte is the address of the address of the data). Examples:
+<sup>1</sup> bbbb (0000..1100) is quick immediate addressing (bbbb is the data); bbbb = 1101 is immediate addressing (the following byte is the data); bbbb = 1110 is absolute addressing (the next byte is the address of the data); bbbb = 1111 is indirect addressing (the next byte is the address of the address of the data). Examples:
 
 ```
  LDA #10 ; quick immediate
@@ -85,60 +85,60 @@ Notes:
 
 Mnemonic | Opcode | Description
 ---------|--------|------------
-NOP     | %0000_0000 | No-op
-LSL     | %0000_0001 | Logical shift accumulator left
-LSR     | %0000_0010 | Logical shift accumulator right
-ASR     | %0000_0011 | Arithmetic shift accumulator right
-ROL     | %0000_0100 | Rotate accumulator left
-ROR     | %0000_0101 | Rotate accumulator right
-NEG     | %0000_0110 | Negate accumulator
-COM     | %0000_0111 | Logical complement accumulator
-POP     | %0000_1000 | Pop top of stack into accumulator
-PUSH    | %0000_1001 | Push accumulator onto stack
-CLC     | %0000_1010 | Clear carry flag
-SEC     | %0000_1011 | Set carry flag
-RET     | %0000_1100 | Return (from subroutine)
+NOP     | 0000_0000 | No-op
+LSL     | 0000_0001 | Logical shift accumulator left
+LSR     | 0000_0010 | Logical shift accumulator right
+ASR     | 0000_0011 | Arithmetic shift accumulator right
+ROL     | 0000_0100 | Rotate accumulator left
+ROR     | 0000_0101 | Rotate accumulator right
+NEG     | 0000_0110 | Negate accumulator
+COM     | 0000_0111 | Logical complement accumulator
+POP     | 0000_1000 | Pop top of stack into accumulator
+PUSH    | 0000_1001 | Push accumulator onto stack
+CLC     | 0000_1010 | Clear carry flag
+SEC     | 0000_1011 | Set carry flag
+RET     | 0000_1100 | Return (from subroutine)
 
 ### Src-operand Instructions
 
 Mnemonic | Opcode | Description
 ---------|--------|------------
-LDA     | %0001_0000 | Load accumulator with data
-ADD     | %0010_0000 | Add data to accumulator
-ADC     | %0011_0000 | Add data and carry to accumulator
-SUB     | %0100_0000 | Subtract data from accumulator
-SBC     | %0101_0000 | Subtract data and borrow (!carry) from accumulator
-AND     | %0110_0000 | Bitwise AND data and accumulator
-OR      | %0111_0000 | Bitwise OR data and accumulator
-XOR     | %1000_0000 | Bitwise XOR data and accumulator
-CMP     | %1001_0000 | Set condition codes according to (accumulator - data)
-TST     | %1010_0000 | Set Z and N according to accumulator
+LDA     | 0001_0000 | Load accumulator with data
+ADD     | 0010_0000 | Add data to accumulator
+ADC     | 0011_0000 | Add data and carry to accumulator
+SUB     | 0100_0000 | Subtract data from accumulator
+SBC     | 0101_0000 | Subtract data and borrow (!carry) from accumulator
+AND     | 0110_0000 | Bitwise AND data and accumulator
+OR      | 0111_0000 | Bitwise OR data and accumulator
+XOR     | 1000_0000 | Bitwise XOR data and accumulator
+CMP     | 1001_0000 | Set condition codes according to (accumulator - data)
+TST     | 1010_0000 | Set Z and N according to accumulator
 
 ### I/O Instructions
 
 Mnemonic | Opcode | Description
 ---------|--------|------------
-IN      | %1101_1_000 | Read data from specified port into accumulator
-OUT     | %1101_0_000 | Write accumulator to specified port
+IN      | 1101_1_000 | Read data from specified port into accumulator
+OUT     | 1101_0_000 | Write accumulator to specified port
 
 ### Dst-operand Instructions
 
 Mnemonic | Opcode | Description
 ---------|--------|------------
-STA     | %111_0000_0 | Store accumulator at specified address
-CLR     | %111_0001_0 | Clear byte at specified address
-INC     | %111_0010_0 | Increment byte at specified address
-DEC     | %111_0011_0 | Decrement byte at specified address
-JMP     | %111_0110_0 | Jump to specified address
-JSR     | %111_0111_0 | Jump to subroutine at specified address
-JNZ     | %111_1000_0 | Jump to specified address if Z = 0
-JZ      | %111_1001_0 | Jump to specified address if Z = 1
-JNN     | %111_1010_0 | Jump to specified address if N = 0
-JN      | %111_1011_0 | Jump to specified address if N = 1
-JNC     | %111_1100_0 | Jump to specified address if C = 0
-JC      | %111_1101_0 | Jump to specified address if C = 1
-JNV     | %111_1110_0 | Jump to specified address if V = 0
-JV      | %111_1111_0 | Jump to specified address if V = 1
+STA     | 111_0000_0 | Store accumulator at specified address
+CLR     | 111_0001_0 | Clear byte at specified address
+INC     | 111_0010_0 | Increment byte at specified address
+DEC     | 111_0011_0 | Decrement byte at specified address
+JMP     | 111_0110_0 | Jump to specified address
+JSR     | 111_0111_0 | Jump to subroutine at specified address
+JNZ     | 111_1000_0 | Jump to specified address if Z = 0
+JZ      | 111_1001_0 | Jump to specified address if Z = 1
+JNN     | 111_1010_0 | Jump to specified address if N = 0
+JN      | 111_1011_0 | Jump to specified address if N = 1
+JNC     | 111_1100_0 | Jump to specified address if C = 0
+JC      | 111_1101_0 | Jump to specified address if C = 1
+JNV     | 111_1110_0 | Jump to specified address if V = 0
+JV      | 111_1111_0 | Jump to specified address if V = 1
 
 ## Example Programs
 
