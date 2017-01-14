@@ -12,7 +12,7 @@ microprocessor with 256 bytes of RAM.
 - 8 LEDs
 - 4 7-segment LED displays
 
-### CPU
+### CPU (Simulated)
 - 8-bit data, 8-bit address, made-up instruction set
 - Accumulator, program counter, stack pointer, condition codes
 - 256 bytes of RAM
@@ -21,12 +21,12 @@ microprocessor with 256 bytes of RAM.
 ## Operation
  Run/Stop | Mode           | Write-protect | Display |Enter               | Notes
 ----------|----------------|---------------|---------|--------------------|------
-Down (Stop)| Down (Normal)  | Down (R/W)    | AADD [1]| Press up to deposit and advance, down to load address | Modify memory
-Down (Stop)| Down (Normal)  | Up (Read-only)| AADD [1]| Press up to advance, down to load address | Examine memory
+Down (Stop)| Down (Normal)  | Down (R/W)    | AADD [1]| Press up to deposit and advance, press down to load address | Modify memory
+Down (Stop)| Down (Normal)  | Up (Read-only)| AADD [1]| Press up to advance, press down to load address | Examine memory
 Down (Stop)| Up (Load/Save) | Down (Load)   | L       | Press up to load 256-byte block | Data input switches specify block (0-127)
 Down (Stop)| Up (Load/Save) | Up (Save)   | S       | Press up to save 256-byte block |Data input switches specify block (0-127)
 Up (Run)  | Down (Normal)  | (Can be read by program | Under program control | (Can be read by program) | Program is running
-Up (Run)  | Up (Step mode) | -             | AADD [2]     | Up to single step  | Program is halted; can single-step
+Up (Run)  | Up (Step mode) | -             | AADD [2]     | Press up to single step  | Program is halted; can single-step
 
 Notes:
 
@@ -36,27 +36,27 @@ Notes:
 
 ## Pself Programmer's Model
 
-8-bit accumulator (A)
-8-bit program counter (PC)
-8-bit stack pointer (SP)
-Four condition code bits: Z, N, C, V
+- 8-bit accumulator (A)
+- 8-bit program counter (PC)
+- 8-bit stack pointer (SP)
+- Four condition code bits: Z, N, C, V
 
-Eight input ports. Port 0 is 8 data-entry switches. Port 1 is 5 control switches. Ports 2-7 are unassigned.
-Port 1 bit 7: Run (active high)
-Port 1 bit 6: Mode (active high)
-Port 1 bit 2: Protect (active high)
-Port 1 bit 1: Enter Address (active low)
-Port 1 bit 0: Enter Data (active low)
+- Eight input ports. Port 0 is 8 data-entry switches. Port 1 is 5 control switches. Ports 2-7 are unassigned.
+ - Port 1 bit 7: Run (active high)
+ - Port 1 bit 6: Mode (active high)
+ - Port 1 bit 2: Protect (active high)
+ - Port 1 bit 1: Enter Address (active low)
+ - Port 1 bit 0: Enter Data (active low)
 
-Eight output ports. Port 0 is 8 LEDs. Ports 1-4 are 7-segment displays, LSD-MSD
-Ports 1-4 bit 7: A segment
-Ports 1-4 bit 6: B segment
-Ports 1-4 bit 5: C segment
-Ports 1-4 bit 4: D segment
-Ports 1-4 bit 3: E segment
-Ports 1-4 bit 2: F segment
-Ports 1-4 bit 1: G segment
-Ports 1-4 bit 0: Decimal point
+-Eight output ports. Port 0 is 8 LEDs. Ports 1-4 are 7-segment displays, LSD-MSD
+ - Ports 1-4 bit 7: A segment
+ - Ports 1-4 bit 6: B segment
+ - Ports 1-4 bit 5: C segment
+ - Ports 1-4 bit 4: D segment
+ - Ports 1-4 bit 3: E segment
+ - Ports 1-4 bit 2: F segment
+ - Ports 1-4 bit 1: G segment
+ - Ports 1-4 bit 0: Decimal point
 
 ### Opcode Format
 
@@ -73,11 +73,13 @@ dst-operand |111f_fffg | f (0000..1111) specifes operation
 Notes:
 
 [1] bbbb (0000..1100) is quick immediate addressing (bbbb is the data); bbbb = 1101 is immediate addressing (the following byte is the data); bbbb = 1110 is absolute addressing (the next byte is the address of the data); bbbb = 1111 is indirect addressing (the next byte is the address of the address of the data). Examples:
+
 ``` LDA #10 ; quick immediate
  LDA #100 ; immediate
  LDA 100 ; absolute
  LDA [100] ; indirect
 ```
+
 ### 0-operand Instructions
 
 Mnemonic | Opcode | Description
