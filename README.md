@@ -74,7 +74,8 @@ Notes:
 
 [1] bbbb (0000..1100) is quick immediate addressing (bbbb is the data); bbbb = 1101 is immediate addressing (the following byte is the data); bbbb = 1110 is absolute addressing (the next byte is the address of the data); bbbb = 1111 is indirect addressing (the next byte is the address of the address of the data). Examples:
 
-``` LDA #10 ; quick immediate
+```
+ LDA #10 ; quick immediate
  LDA #100 ; immediate
  LDA 100 ; absolute
  LDA [100] ; indirect
@@ -140,6 +141,7 @@ JNV     | %111_1110_0 | Jump to specified address if V = 0
 JV      | %111_1111_0 | Jump to specified address if V = 1
 
 ## Example Programs
+
 ```
           ; binary-to-decimal converter for the pself computer
 
