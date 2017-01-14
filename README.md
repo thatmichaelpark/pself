@@ -21,8 +21,8 @@ microprocessor with 256 bytes of RAM.
 ## Operation
  Run/Stop | Mode           | Write-protect | Display |Enter               | Notes
 ----------|----------------|---------------|---------|--------------------|------
-Down (Stop)| Down (Normal)  | Down (R/W)    | AADD [1]| Press up to deposit and advance, press down to load address | Modify memory
-Down (Stop)| Down (Normal)  | Up (Read-only)| AADD [1]| Press up to advance, press down to load address | Examine memory
+Down (Stop)| Down (Normal)  | Down (R/W)    | AADD<sup>1</sup>| Press up to deposit and advance, press down to load address | Modify memory. Use data input switches to specify data or address.
+Down (Stop)| Down (Normal)  | Up (Read-only)| AADD [1]| Press up to advance, press down to load address | Examine memory. Use data input switches to specify address.
 Down (Stop)| Up (Load/Save) | Down (Load)   | L       | Press up to load 256-byte block | Data input switches specify block (0-127)
 Down (Stop)| Up (Load/Save) | Up (Save)   | S       | Press up to save 256-byte block |Data input switches specify block (0-127)
 Up (Run)  | Down (Normal)  | (Can be read by program | Under program control | (Can be read by program) | Program is running
@@ -30,7 +30,7 @@ Up (Run)  | Up (Step mode) | -             | AADD [2]     | Press up to single s
 
 Notes:
 
-[1] Two hex digits for the current address, two hex digits for the contents of that address
+<sup>1</sup> Two hex digits for the current address, two hex digits for the contents of that address
 
 [2] Alternates between AADD as in [1] and the output of the halted program
 
