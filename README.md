@@ -3,8 +3,6 @@ Pself is a single-board computer designed to recreate the experience of working 
 computers such as the Cosmac Elf. A Parallax P8X32A "Propeller" microcontroller simulates an 8-bit
 microprocessor with 256 bytes of RAM.
 
-[TOC]
-
 ## Hardware
 ### Inputs
 - 8 data input toggle switches
