@@ -68,7 +68,7 @@ Group    | Bit pattern               | Description
 0-operand   |0000_aaaa          | aaaa (0000..1111) specifies operation                   |
 src-operand |0001_bbbb..1100_bbbb  | high nibble specifies operation, low nibble (bbbb) indicates addressing mode<sup>1</sup>
 in/out      |1101_deee | d = 0 indicates output; d = 1 indicates input; eee (000..110) indicates port #, eee = 111 means indirect
-dst-operand |111f_fffg | f (0000..1111) specifes operation
+dst-operand |111f_fffg | ffff (0000..1111) specifes operation; g = 0 indicates absolute addressing, g = 1 indicates indirect addressing (address byte follows)
 
 Notes:
 
