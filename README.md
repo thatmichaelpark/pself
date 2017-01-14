@@ -3,6 +3,8 @@ Pself is a single-board computer designed to recreate the experience of working 
 computers such as the Cosmac Elf. A Parallax P8X32A "Propeller" microcontroller simulates an 8-bit
 microprocessor with 256 bytes of RAM.
 
+[TOC]
+
 ## Hardware
 ### Inputs
 - 8 data input toggle switches
@@ -48,7 +50,7 @@ Notes:
  - Port 1 bit 1: Enter Address (active low)
  - Port 1 bit 0: Enter Data (active low)
 
--Eight output ports. Port 0 is 8 LEDs. Ports 1-4 are 7-segment displays, LSD-MSD
+- Eight output ports. Port 0 is 8 LEDs. Ports 1-4 are 7-segment displays, LSD-MSD
  - Ports 1-4 bit 7: A segment
  - Ports 1-4 bit 6: B segment
  - Ports 1-4 bit 5: C segment
@@ -75,9 +77,9 @@ Notes:
 <sup>1</sup> bbbb (0000..1100) is quick immediate addressing (bbbb is the data); bbbb = 1101 is immediate addressing (the following byte is the data); bbbb = 1110 is absolute addressing (the next byte is the address of the data); bbbb = 1111 is indirect addressing (the next byte is the address of the address of the data). Examples:
 
 ```
- LDA #10 ; quick immediate
- LDA #100 ; immediate
- LDA 100 ; absolute
+ LDA #10   ; quick immediate
+ LDA #100  ; immediate
+ LDA 100   ; absolute
  LDA [100] ; indirect
 ```
 
@@ -141,6 +143,8 @@ JNV     | 111_1110_0 | Jump to specified address if V = 0
 JV      | 111_1111_0 | Jump to specified address if V = 1
 
 ## Example Programs
+
+### Binary-to-decimal Converter
 
 ```
           ; binary-to-decimal converter for the pself computer
@@ -260,6 +264,8 @@ JV      | 111_1111_0 | Jump to specified address if V = 1
 90: 8e                    byte    %10001110 ; F
           ; that's all, folks!
 ```
+
+### Cylon Display
 
 ```
           ; cylon display
