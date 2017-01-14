@@ -260,3 +260,54 @@ JV      | %111_1111_0 | Jump to specified address if V = 1
 90: 8e                    byte    %10001110 ; F
           ; that's all, folks!
 ```
+
+```
+          ; cylon display
+
+          start
+00: 11            lda     #1
+01: e0 37         sta     mask
+03: d0            out     #0
+04: ee 2c         jsr     Delay
+          loop
+06: 17            lda     #7
+07: e0 35         sta     i
+09: ee 1a loop1   jsr     ShiftToTheLeft
+0b: e6 35         dec     i
+0d: f0 09         jnz     loop1
+
+0f: 17            lda     #7
+10: e0 35         sta     i
+12: ee 23 loop2   jsr     ShiftToTheRight
+14: e6 35         dec     i
+16: f0 12         jnz     loop2
+
+18: ec 06         jmp     loop
+
+          ShiftToTheLeft
+1a: 1e 37         lda     mask
+1c: 01            lsl
+1d: e0 37         sta     mask
+1f: d0            out     #0
+20: ee 2c         jsr     Delay
+22: 0c            ret
+
+          ShiftToTheRight
+23: 1e 37         lda     mask
+25: 02            lsr
+26: e0 37         sta     mask
+28: d0            out     #0
+29: ee 2c         jsr     Delay
+2b: 0c            ret
+
+          Delay
+2c: 1d 42         lda     #66
+2e: e0 36         sta     j
+30: e6 36 wait    dec     j
+32: f0 30         jnz     wait
+34: 0c            ret
+
+35: 00    i       byte    0
+36: 00    j       byte    0
+37: 00    mask    byte    0
+```
